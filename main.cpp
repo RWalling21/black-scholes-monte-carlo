@@ -4,6 +4,26 @@
 #include <vector>
 
 // Black Scholes Approach
+double normalCDF(double value) {
+    return 0.5 * (1.0 + std::erf(value / std::sqrt(2.0)));
+}
+
+double blackScholesOptionPricing(double S0, double K, double r, double sigma, double T, bool isCallOption) {
+    // if you've never seen the black Scholes model before the below code is going to look like black magic, just know I'm expressing a formula to price a financial derivative at a given time
+    // https://www.investopedia.com/terms/b/blackscholes.asp - Black Scholes Invetopedia
+    // https://www.youtube.com/playlist?list=PLeJXxpEi4UA_WEe2LLE5DmhDdqoz_aiNR - Understanding Black Scholes
+
+    double d1 = (std::log(S0/K) + (r + ((std::pow(sigma, 2)) * 0.5)) * T / (sigma * std::sqrt((T))));
+    double d2 = d1 - sigma * std::sqrt(T);
+
+    if (isCallOption) {
+        // Black Scholes formula for a Call Option
+        return (S0 * normalCDF(d1) - K * std::exp(-r * (T)) * normalCDF(d2));
+    } else {
+        // Black Scholes formula for a Put Option
+        return (K * std::exp(-r * T) * normalCDF(-d2) - S0 * normalCDF(-d1));
+    }
+}
 
 // Monte Carlo Approach 
 
@@ -45,21 +65,24 @@ double monteCarloOptionPricing(double S0, double K, double r, double sigma, doub
 
 int main() {
     // Params 
-    double S0 = 100.0; 
-    double K = 100.0;
-    double r = 0.05;
-    double sigma = 0.2; 
-    double T = 1;
-    int numSimulations = 100000; 
+    double S0 = 100.0; // initial price
+    double K = 100.0; // strike price
+    double r = 0.05; // risk-free interest rate
+    double sigma = 0.2; // variance 
+    double T = 1.0; // Time to maturity
+    int numSimulations = 100000; // monte carlo simulation runs
 
     // Calculate derivative prices
-    double callPrice = monteCarloOptionPricing(S0, K, r, sigma, T, numSimulations, true);
-    double putPrice = monteCarloOptionPricing(S0, K, r, sigma, T, numSimulations, false);
+    double estCallPrice = monteCarloOptionPricing(S0, K, r, sigma, T, numSimulations, true);
+    double actCallPrice = blackScholesOptionPricing(S0, K, r, sigma, T, true);
+    double estPutPrice = monteCarloOptionPricing(S0, K, r, sigma, T, numSimulations, false);
+    double actPutPrice = blackScholesOptionPricing(S0, K, r, sigma, T, false);
 
-    std::cout << "Estimated european Call Option Price: " << callPrice << std::endl;
-    // Actual Price
-    std::cout << "Estimated european Put Option Price: " << putPrice << std::endl;
-    // Actual Price
+    std::cout << "Estimated european Call Option Price: " << estCallPrice << std::endl;
+    std::cout << "Actual european Call Option Price: " << actCallPrice << std::endl;
+
+    std::cout << "Estimated european Put Option Price: " << estPutPrice << std::endl;
+    std::cout << "Estimated european Put Option Price: " << actPutPrice << std::endl;
 
     return 0;
 }
