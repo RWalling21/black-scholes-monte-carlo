@@ -1,7 +1,6 @@
 #ifndef MONTE_CARLO_H
 #define MONTE_CARLO_H
 
-
 // Declarations
 double normalRandomVariable();
 double callOptionPayoff(double S, double K);
