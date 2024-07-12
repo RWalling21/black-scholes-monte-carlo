@@ -5,14 +5,14 @@
 
 // Black Scholes Approach
 
+// Normal Cumulative Distrobution Function
 double normalCDF(double value) {
     return 0.5 * (1.0 + std::erf(value / std::sqrt(2.0)));
 }
 
+// Computes the value of a Call or Put option using the Black Scholes model
 double blackScholesOptionPricing(double S0, double K, double r, double sigma, double T, bool isCallOption) {
-    // if you've never seen the black Scholes model before the below code is going to look like black magic, just know I'm expressing a mathmatical formula to price a financial derivative
-    // https://www.investopedia.com/terms/b/blackscholes.asp - Black Scholes Invetopedia
-    // https://www.youtube.com/playlist?list=PLeJXxpEi4UA_WEe2LLE5DmhDdqoz_aiNR - Understanding Black Scholes
+    // https://www.investopedia.com/terms/b/blackscholes.asp - Black Scholes Invetopedia Article
 
     double d1 = (std::log(S0/K) + (r + ((std::pow(sigma, 2)) * 0.5)) * T / (sigma * std::sqrt((T))));
     double d2 = d1 - sigma * std::sqrt(T);
