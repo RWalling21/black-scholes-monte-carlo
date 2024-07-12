@@ -1,4 +1,4 @@
-# Experimentation with calculating financial derivatives (in this case, option) prices using the Black-Scholes algorithm and Monte-Carlo simulation. 
+# Calculating price of financial derivative using the Black-Scholes and Monte-Carlo simulation. 
 
 
 
