@@ -10,7 +10,7 @@ double normalCDF(double value) {
 }
 
 double blackScholesOptionPricing(double S0, double K, double r, double sigma, double T, bool isCallOption) {
-    // if you've never seen the black Scholes model before the below code is going to look like black magic, just know I'm expressing a formula to price a financial derivative at a given time
+    // if you've never seen the black Scholes model before the below code is going to look like black magic, just know I'm expressing a mathmatical formula to price a financial derivative
     // https://www.investopedia.com/terms/b/blackscholes.asp - Black Scholes Invetopedia
     // https://www.youtube.com/playlist?list=PLeJXxpEi4UA_WEe2LLE5DmhDdqoz_aiNR - Understanding Black Scholes
 
