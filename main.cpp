@@ -68,7 +68,7 @@ double monteCarloOptionPricing(double S0, double K, double r, double sigma, doub
 int main() {
     // Params 
     double S0 = 100.0; // initial price
-    double K = 100.0; // strike price
+    double K = 115.0; // strike price
     double r = 0.05; // risk-free interest rate
     double sigma = 0.2; // variance 
     double T = 1.0; // Time to maturity
@@ -84,7 +84,7 @@ int main() {
     std::cout << "Actual european Call Option Price: " << actCallPrice << std::endl;
 
     std::cout << "Estimated european Put Option Price: " << estPutPrice << std::endl;
-    std::cout << "Estimated european Put Option Price: " << actPutPrice << std::endl;
+    std::cout << "Actual european Put Option Price: " << actPutPrice << std::endl;
 
     return 0;
 }
